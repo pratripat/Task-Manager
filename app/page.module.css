@@ -1,0 +1,71 @@
+.heading {
+    font: var(--main-font);
+    margin: 2rem auto;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.heading-img {
+    width: 100px;
+    height: 100px;
+}
+
+.main-header {
+    margin: 2rem auto;
+    font-size: 4rem;
+}
+
+.description {
+    font: var(--main-font);
+    font-weight: 700;
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 3px var(--color-accent));
+}
+
+.register-buttons {
+    margin: 5rem auto;
+    display: flex;
+    justify-content: center;
+}
+
+.sign-up-button {
+    background-color: var(--color-light-blue);
+    /* A vibrant blue, similar to the image */
+    color: #212121;
+    /* Dark text for contrast */
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    margin: 0 10px;
+    /* Slightly rounded corners */
+    font-family: var(--main-font);
+    /* A clean, modern font */
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-flex;
+    /* Allows the icon and text to sit nicely together */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for depth */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth transitions for hover effects */
+}
+
+.sign-up-button:hover {
+    /* Slightly darker blue on hover */
+    box-shadow: 0 10px 0 var(--color-accent);
+    /* More pronounced shadow on hover */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sign-up-button .icon {
+    margin-right: 8px;
+    /* Space between the icon and text */
+}
+
+.sign-in-button {
+    color: var(--color-light-blue);
+    text-decoration: none;
+}
