@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base dark theme styles */
+@layer base {
+  :root {
+    --color-bg: hsl(220, 15%, 10%);
+    --color-text: hsl(0, 0%, 90%);
+    --color-heading: hsl(0, 0%, 100%);
+    --color-card-bg: hsl(220, 15%, 15%);
+    --color-card-border: hsl(220, 15%, 25%);
+    --color-accent: hsl(200, 70%, 50%);
+    --color-highlight: #00f0ff;
+    --main-font: 'Inter', sans-serif;
+
+    --color-light-blue: hsl(200, 80%, 60%);
+    --color-purple: hsl(270, 60%, 55%);
+    /* soft, vibrant purple */
+    --color-pink: hsl(330, 70%, 60%);
+    /* complementary pop */
+    --color-green: hsl(140, 50%, 50%);
+    /* subtle contrast */
+    --color-orange: hsl(30, 80%, 55%);
+    /* for highlights/buttons */
+    --color-light-accent: hsl(200, 70%, 70%);
+    /* lighter cyan for hover states */
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--main-font);
+    margin: 2rem auto;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  header,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-heading);
+    margin: 2rem auto;
+    font-family: 'Montserrat', sans-serif;
+    filter: drop-shadow(0 0 3px var(--color-accent));
+    display: flex;
+    justify-content: center;
+  }
+
+  p,
+  span,
+  li,
+  a {
+    color: var(--color-text);
+    size: 3rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--color-accent);
+  }
+
+  ul {
+    list-style-type: none;
+    /* removes bullets */
+    padding-left: 0;
+    /* sets text color to red */
+    font-size: 16px;
+    /* optional: adjust text size */
+  }
+}
+
+.highlight {
+  font-size: 5rem;
+  /* adjust as needed */
+  font-weight: bold;
+  background: linear-gradient(90deg, var(--color-purple), var(--color-accent));
+  /* from indigo to blue */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* for non-webkit browsers */
+}
+
+/* Grid container for cards */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* Card styles */
+.card {
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-card-border);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Optional: main heading */
+.main-heading {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 2rem 0;
+  color: var(--color-heading);
+}

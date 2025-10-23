@@ -1,0 +1,82 @@
+.heading {
+    font-size: 3rem;
+    font-weight: bold;
+    /* margin: 2rem 0 1rem 2rem; */
+    background: linear-gradient(90deg, var(--color-light-blue), var(--color-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    /* fully neutralize glow or shadow from any source */
+    text-shadow: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+.description {
+    margin: 0rem 0rem 0rem 2rem;
+    font-weight: 200%;
+    font-size: 1rem;
+}
+
+.navbar {
+    max-width: 100rem;
+    /* same as max-w-7xl */
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25rem;
+    background: var(--color-bg);
+}
+
+.navbar svg {
+    margin: 0 0.5rem 0 -0.25rem;
+}
+
+.navbar-btn {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: var(--main-font);
+    font-size: 0.9rem;
+    margin: 1rem;
+    width: 125px;
+    padding: 0.8rem;
+    border: var(--color-light-blue);
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 1px var(--color-highlight);
+    transition: all 0.3s ease;
+}
+
+.navbar-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 5px var(--color-accent);
+}
+
+.navbar-btn .icon {
+    width: 5px;
+    height: 5px;
+}
+
+.navbar-btn-highlight {
+    background: var(--color-highlight);
+    color: #000;
+    font: var(--main-font);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 1rem;
+    width: 125px;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    /* box-shadow: 0 10px 5px var(--color-highlight)05; */
+    transition: all 0.3s ease;
+}
+
+.navbar-btn-highlight:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px var(--color-highlight);
+}
