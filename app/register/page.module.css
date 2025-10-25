@@ -17,7 +17,6 @@
     margin: 5vh;
     justify-content: center;
     align-items: center;
-    /* background: radial-gradient(ellipse at top, #0f0f2d, #090921); */
     color: var(--color-text);
 }
 
@@ -32,7 +31,6 @@
     /* min-height: 480px; */
     transition: all 0.3s ease-in-out;
 }
-
 
 .title {
     font-size: 1.8rem;
