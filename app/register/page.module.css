@@ -14,22 +14,22 @@
 /* Cosmic dark theme login form */
 
 .container {
-    display: flex;
+    margin: 5vh;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    /* background: radial-gradient(ellipse at top, #0f0f2d, #090921); */
     color: var(--color-text);
 }
 
 .card {
     background: var(--color-card-background);
-    padding: 2rem;
+    padding: 3rem;
     border-radius: 16px;
     width: 100%;
     max-width: 400px;
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
     text-align: center;
+    /* min-height: 480px; */
+    transition: all 0.3s ease-in-out;
 }
 
 .title {
@@ -75,6 +75,21 @@
     gap: 1rem;
 }
 
+.form li {
+    color: var(--color-pink);
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(5px);
+    animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .inputGroup {
     background: #111;
     border: 1px solid #333;
@@ -98,11 +113,12 @@
     color: #888;
 }
 
-.loginButton {
+.registerButton {
     background: #00f0ff;
     color: #000;
     font-weight: 600;
     padding: 0.8rem;
+    margin: 1rem 0 0 0;
     border: none;
     border-radius: 8px;
     cursor: pointer;

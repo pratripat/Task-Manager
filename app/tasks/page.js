@@ -1,6 +1,27 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 import classes from './page.module.css';
+import { getTasks } from '@/actions/fetching';
+import TaskCard from '@/components/task-card.js';
+import { FilterIcon, LogoutIcon, NewTaskIcon } from '@/components/tasks-page-icons.js';
 
 export default function TasksPage() {
+    const [tasks, setTasks] = useState([]);
+    useEffect(() => {
+        async function fetchTasks() {
+            try {
+                const data = await getTasks();
+                setTasks(data);
+            } catch (err) {
+                console.log('Fetching tasks error:', err);
+            }
+        }
+
+        fetchTasks();
+    });
+
     return (
         <>
             <nav className={classes.navbar}>
@@ -10,57 +31,25 @@ export default function TasksPage() {
                 </div>
                 <div>
                     <button className={classes['navbar-btn']}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={12}
-                            height={12}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707v5l-4 4v-5a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
-                            />
-                        </svg>
+                        <FilterIcon />
                         Filter
                     </button>
                     <button className={classes['navbar-btn-highlight']}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={12}
-                            height={12}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="3"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M12 4v16m8-8H4"
-                            />
-                        </svg>
+                        <NewTaskIcon />
                         New Task
                     </button>
                     <button className={classes['navbar-btn']}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={12}
-                            height={12}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                        </svg>
+                        <LogoutIcon />
                         Logout
                     </button>
                 </div>
             </nav>
+
+            <div className={classes['task-grid']}>
+                {tasks.map(task => {
+                    return <TaskCard key={task.id} task={task} />
+                })}
+            </div>
         </>
     )
 }

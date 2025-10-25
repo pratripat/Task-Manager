@@ -1,11 +1,27 @@
 import Link from 'next/link';
-import { useActionState } from 'react';
+import { useState } from 'react';
 
 import classes from '../app/register/page.module.css';
-import { signup } from '@/actions/auth-actions';
+import { auth } from '@/actions/auth-actions';
 
 export default function AuthForm({ mode }) {
-    const [formState, formAction] = useActionState(signup, {});
+    const [errors, setErrors] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setErrors({});
+
+        const formData = new FormData(e.target);
+        const result = await auth(mode, formData);
+
+        if (result.errors) {
+            setErrors(result.errors);
+        }
+        setIsLoading(false);
+    }
+
     return (
         <>
             <div className={classes.container}>
@@ -21,18 +37,20 @@ export default function AuthForm({ mode }) {
                         <Link
                             href='/register?mode=login'
                             className={`${classes.tab} ${mode === 'login' ? classes.activeTab : ''}`}
+                            onClick={() => setErrors({})}
                         >
                             Login
                         </Link>
                         <Link
                             href='/register?mode=signup'
                             className={`${classes.tab} ${mode === 'signup' ? classes.activeTab : ''}`}
+                            onClick={() => setErrors({})}
                         >
                             Register
                         </Link>
                     </div>
 
-                    <form className={classes.form} action={formAction}>
+                    <form className={classes.form} onSubmit={handleSubmit}>
                         <div className={classes.inputGroup}>
                             <span className={classes.icon}>📧</span>
                             <input id="email" name="email" type="email" placeholder="cosmic@space.com" />
@@ -43,18 +61,19 @@ export default function AuthForm({ mode }) {
                             <input id="password" name="password" type="password" placeholder="••••••••" />
                         </div>
 
-                        {formState.errors && (
-                            <ul id="form-error">
-                                {Object.keys(formState.errors).map((error) => (
-                                    <li key={error}>{formState.errors[error]}</li>
+                        {Object.keys(errors).length > 0 && (
+                            <ul id="form-errors">
+                                {Object.keys(errors).map((error) => (
+                                    <li key={error}>{errors[error]}</li>
                                 ))}
                             </ul>
                         )}
 
-                        <button className={classes.loginButton} type="submit">
-                            {
+                        <button className={classes.registerButton} disabled={isLoading} type="submit">
+                            {/* {
                                 (mode === 'login') ? 'Login' : 'Sign up'
-                            }
+                            } */}
+                            {isLoading ? 'Loading...' : mode === 'login' ? 'Log in' : 'Sign up'}
                             <span className={classes.arrow}>{'->'}</span>
                         </button>
                     </form>
