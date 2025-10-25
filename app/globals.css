@@ -5,26 +5,27 @@
 /* Base dark theme styles */
 @layer base {
   :root {
-    --color-bg: hsl(220, 15%, 10%);
-    --color-text: hsl(0, 0%, 90%);
-    --color-heading: hsl(0, 0%, 100%);
-    --color-card-bg: hsl(220, 15%, 15%);
-    --color-card-border: hsl(220, 15%, 25%);
-    --color-accent: hsl(200, 70%, 50%);
+    --color-bg: rgb(18, 19, 23);
+    --color-text: rgb(230, 230, 230);
+    --color-heading: rgb(255, 255, 255);
+    --color-card-bg: rgb(33, 36, 44);
+    --color-card-border: rgb(54, 61, 73);
+    --color-accent: rgb(38, 157, 217);
     --color-highlight: #00f0ff;
+    /* Kept as original hex value */
     --main-font: 'Inter', sans-serif;
+    /* Kept as original font definition */
 
-    --color-light-blue: hsl(200, 80%, 60%);
-    --color-purple: hsl(270, 60%, 55%);
-    /* soft, vibrant purple */
-    --color-pink: hsl(330, 70%, 60%);
-    /* complementary pop */
-    --color-green: hsl(140, 50%, 50%);
-    /* subtle contrast */
-    --color-orange: hsl(30, 80%, 55%);
-    /* for highlights/buttons */
-    --color-light-accent: hsl(200, 70%, 70%);
-    /* lighter cyan for hover states */
+    --color-light-blue: rgb(71, 180, 235);
+    --color-purple: rgb(140, 71, 209);
+    --color-pink: rgb(224, 82, 153);
+    --color-green: rgb(64, 191, 106);
+    --color-orange: rgb(232, 140, 48);
+    --color-light-accent: rgb(125, 196, 232);
+
+    --color-red: rgb(224, 82, 82);
+    --color-yellow: rgb(242, 216, 90);
+    --color-light-green: rgb(9, 245, 13);
   }
 
   body {

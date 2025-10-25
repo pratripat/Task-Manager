@@ -14,7 +14,7 @@
 }
 
 .description {
-    margin: 0rem 0rem 0rem 2rem;
+    margin: 0rem 0rem 0rem 1rem;
     font-weight: 200%;
     font-size: 1rem;
 }
@@ -79,4 +79,178 @@
 .navbar-btn-highlight:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 10px var(--color-highlight);
+}
+
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 3rem;
+    max-width: 80rem;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+
+    /* md breakpoint */
+    .task-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    /* lg breakpoint */
+    .task-grid {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0 2rem;
+    }
+}
+
+.task-card {
+    background: var(--color-card-bg);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease-in-out;
+}
+
+.task-card:hover {
+    border-color: var(--color-highlight);
+    transform: scale(1.01);
+}
+
+.task-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0 0 0.75rem 0;
+    text-shadow: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+.task-badges {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.badge {
+    padding: 0.125rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    border-style: solid;
+    border-width: 1px;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+}
+
+/* Priority Badge Styles */
+.badge-high {
+    background-color: rgba(228, 0, 0, 0.2);
+    border-color: rgb(185, 0, 0);
+    color: red;
+}
+
+.badge-medium {
+    background-color: rgba(255, 180, 60, 0.2);
+    border-color: yellow;
+    color: yellow;
+}
+
+.badge-low {
+    background-color: rgba(9, 245, 13, 0.2);
+    border-color: var(--color-light-green);
+    color: var(--color-light-green);
+}
+
+.status-todo {
+    background-color: rgba(69, 74, 105, 0.3);
+    border-color: gray;
+    color: gray;
+}
+
+.status-in-progress {
+    background-color: rgba(38, 157, 217, 0.3);
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+}
+
+.status-finished {
+    background-color: rgba(9, 245, 13, 0.2);
+    border-color: var(--color-light-green);
+    color: var(--color-light-green);
+}
+
+.task-description {
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+}
+
+.task-dates {
+    color: #9ca3af;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 2rem;
+    font-size: 0.75rem;
+}
+
+.task-date-item {
+    display: flex;
+    align-items: center;
+    margin-top: -0.5rem;
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+}
+
+.icon-due-date {
+    color: var(--color-red);
+}
+
+.icon-created-date {
+    color: #9ca3af;
+}
+
+.task-action-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border: 1px solid var(--color-highlight);
+    border-radius: 0.5rem;
+    color: #d1d5db;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+    background: none;
+    opacity: 0.5;
+}
+
+.task-action-button:hover:not(:disabled) {
+    color: var(--color-highlight);
+    border-color: var(--color-accent-purple);
+    opacity: 1;
+}
+
+.task-action-button:disabled {
+    background-color: var(--color-low);
+    border-color: var(--color-low);
+    color: var(--color-text-primary);
+    opacity: 0.7;
+    cursor: not-allowed;
 }
