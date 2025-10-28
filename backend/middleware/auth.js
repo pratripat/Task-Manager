@@ -9,7 +9,7 @@ export async function requireAuth(req, res, next) {
 
     if (!sessionId) {
         // console.log('❌ No session ID found in cookies');
-        return res.status(401).json({ error: 'Not authenticated' });
+        return res.status(401).json({ error: 'User not authenticated' });
     }
 
     try {

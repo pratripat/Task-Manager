@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { hashUserPassword, verifyPassword } from '../lib/hash.js';
 import { generateId } from 'lucia';
 import { authLucia } from '../lib/auth.js';
+import { requireAuth } from '../middleware/auth.js';
 
 export const router = express.Router();
 
@@ -74,3 +75,19 @@ router.post('/', validate(validateUser), async (req, res) => {
         return res.status(500).json({ error: 'Server error' });
     }
 });
+
+router.post('/logout', requireAuth, async (req, res) => {
+    try {
+        // invalidate the current session
+        await authLucia.invalidateSession(req.session.id);
+
+        // create a blank cookie to clear it 
+        const sessionCookie = authLucia.createBlankSessionCookie();
+        res.setHeader('Set-Cookie', sessionCookie.serialize());
+
+        return res.status(200).json({ message: 'Logged out successfully' });
+    } catch (err) {
+        console.log('Logout error:', err);
+        return res.status(200).json({ error: 'Failed to logout' });
+    }
+})
