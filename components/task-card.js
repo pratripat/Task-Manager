@@ -41,13 +41,57 @@ const CheckmarkIcon = () => (
     </svg>
 );
 
-export default function TaskCard({ task }) {
+const EditIcon = (props) => {
+    return <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className={classes['icon']}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props} // Pass through any props like 'className' or 'onClick'
+    >
+        <path d="M12 20h9" />
+        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+    </svg>
+}
+
+const DeleteIcon = (props) => {
+    return <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className={classes['icon']}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props} // Pass through any props like 'className' or 'onClick'
+    >
+        <polyline points="3 6 5 6 21 6" />
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+    </svg>
+}
+
+export default function TaskCard({ task, onEdit, onDelete, onTaskCompletion }) {
     const priorityClass = getBadgeClass('priority', task.priority);
     const statusClass = getBadgeClass('status', task.status);
 
     return (
         <div className={classes['task-card']}>
-            <h3 className={classes['task-title']}>{task.title}</h3>
+            <header className={classes['task-header']}>
+                <h3 className={classes['task-title']}>{task.title}</h3>
+                <div className={classes['task-header-icons']}>
+                    <div className={classes['edit-icon']} onClick={() => onEdit(task._id)}>
+                        <EditIcon />
+                    </div>
+                    <div className={classes['delete-icon']} onClick={() => onDelete(task._id)}>
+                        <DeleteIcon />
+                    </div>
+                </div>
+            </header>
 
             <div className={classes['task-badges']}>
                 <span className={`${classes['badge']} ${classes[priorityClass]}`}>{task.priority}</span>
@@ -59,15 +103,15 @@ export default function TaskCard({ task }) {
             <div className={classes['task-dates']}>
                 <p className={classes['task-date-item']}>
                     <CalendarIcon />
-                    Due: {task.dueDate}
+                    Due: {task.dueDate.split('T')[0]}
                 </p>
                 <p className={classes['task-date-item']}>
                     <ClockIcon />
-                    Created: {task.createdDate}
+                    Created: {task.createdDate.split('T')[0]}
                 </p>
             </div>
 
-            <button className={classes['task-action-button']}>
+            <button className={classes['task-action-button']} onClick={() => onTaskCompletion(task._id)} disabled={task.status === 'Finished'}>
                 <CheckmarkIcon />
                 <span>{task.status === 'Finished' ? 'Completed' : 'Mark Complete'}</span>
             </button>

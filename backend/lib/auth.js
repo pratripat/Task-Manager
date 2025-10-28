@@ -4,8 +4,6 @@ import { Lucia } from "lucia";
 import dotenv from 'dotenv';
 dotenv.config();
 
-console.log(process.env.MONGO_URI, process.env.MONGO_DB);
-
 const client = new MongoClient(process.env.MONGO_URI);
 await client.connect();
 const db = client.db(process.env.MONGO_DB);
@@ -16,20 +14,6 @@ const adapter = new MongodbAdapter(
     db.collection("users")
 );
 
-// export const authLucia = new Lucia(adapter, {
-//     sessionCookie: {
-//         name: 'auth_session',
-//         expires: false,
-//         attributes: {
-//             secure: process.env.NODE_ENV === 'production'
-//         }
-//     },
-//     getUserAttributes: (attributes) => {
-//         return {
-//             email: attributes.email
-//         };
-//     }
-// });
 export const authLucia = new Lucia(adapter, {
     sessionCookie: {
         name: "auth_session",

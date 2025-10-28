@@ -58,3 +58,4 @@ export async function auth(mode, formData) {
     if (mode === 'login') return login(formData);
     return signup(formData);
 }
+

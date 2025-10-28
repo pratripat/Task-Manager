@@ -11,7 +11,7 @@
     --color-card-bg: rgb(33, 36, 44);
     --color-card-border: rgb(54, 61, 73);
     --color-accent: rgb(38, 157, 217);
-    --color-highlight: #00f0ff;
+    --color-highlight: rgb(0, 240, 255);
     /* Kept as original hex value */
     --main-font: 'Inter', sans-serif;
     /* Kept as original font definition */

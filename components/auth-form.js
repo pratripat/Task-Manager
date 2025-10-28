@@ -39,14 +39,14 @@ export default function AuthForm({ mode }) {
                             className={`${classes.tab} ${mode === 'login' ? classes.activeTab : ''}`}
                             onClick={() => setErrors({})}
                         >
-                            Login
+                            Log in
                         </Link>
                         <Link
                             href='/register?mode=signup'
                             className={`${classes.tab} ${mode === 'signup' ? classes.activeTab : ''}`}
                             onClick={() => setErrors({})}
                         >
-                            Register
+                            Sign up
                         </Link>
                     </div>
 
