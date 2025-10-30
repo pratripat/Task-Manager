@@ -12,6 +12,8 @@ router.get('/', requireAuth, async (req, res) => {
 
         const tasks = await Task.find({ userId });
 
+        const tasks = await Task.find();
+
         return res.status(200).json(tasks);
     } catch (err) {
         console.log(err);
