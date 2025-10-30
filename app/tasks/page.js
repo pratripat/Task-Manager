@@ -135,15 +135,15 @@ export default function TasksPage() {
                     <p className={classes.description}>Manage your cosmic tasks with precision</p>
                 </div>
                 <div>
-                    <button className={classes['navbar-btn']}>
+                    <button className={classes['navbar-btn']} disabled={!isRegistered}>
                         <FilterIcon />
                         Filter
                     </button>
-                    <button className={classes['navbar-btn-highlight']} onClick={() => setIsNewTaskModalOpen(true)}>
+                    <button className={classes['navbar-btn-highlight']} onClick={() => setIsNewTaskModalOpen(true)} disabled={!isRegistered}>
                         <NewTaskIcon />
                         New Task
                     </button>
-                    <button className={classes['navbar-btn']} onClick={handleLogout}>
+                    <button className={classes['navbar-btn']} onClick={handleLogout} disabled={!isRegistered}>
                         <LogoutIcon />
                         Logout
                     </button>
