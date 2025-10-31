@@ -3,6 +3,10 @@ import Joi from 'joi';
 
 const taskSchema = new mongoose.Schema(
     {
+        userId: {
+            type: String,
+            required: true
+        },
         title: {
             type: String,
             minlength: 5,
@@ -44,8 +48,6 @@ const taskSchema = new mongoose.Schema(
 export const Task = mongoose.model('Task', taskSchema);
 
 export function validateTask(task) {
-    console.log(task);
-
     const schema = Joi.object({
         title: Joi.string().min(5).max(255).required(),
         priority: Joi.string().required(),
