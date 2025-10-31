@@ -120,7 +120,7 @@
 }
 
 .register-btn:hover {
-    transform: translateY(-1px);
+    transform: translateY(-1px) scale(1.02);
     box-shadow: 0 0 5px var(--color-accent);
 }
 
@@ -146,6 +146,6 @@
 }
 
 .register-btn-highlight:hover {
-    transform: translateY(-1px);
+    transform: translateY(-1px) scale(1.02);
     box-shadow: 0 4px 10px var(--color-highlight);
 }

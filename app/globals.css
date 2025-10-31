@@ -44,7 +44,7 @@
     display: flex;
   }
 
-  body::before {
+  body:not(:has(.no-background-page))::before {
     content: '';
     position: fixed;
     top: 0;
@@ -54,6 +54,16 @@
     background: rgba(0, 0, 0, 0.7);
     pointer-events: none;
     z-index: 0;
+  }
+
+  .no-background-page {
+    background: var(--color-bg) !important;
+  }
+
+  /* If the background is on body, you might need: */
+  body:has(.no-background-page) {
+    background: var(--color-bg) !important;
+    background-image: none !important;
   }
 
   header,

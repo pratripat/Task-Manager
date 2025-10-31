@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import classes from './page.module.css';
 import { createTask, deleteTask, editTask, getTasks, logout } from '@/actions/fetching';
@@ -9,6 +9,23 @@ import { FilterIcon, LogoutIcon, NewTaskIcon } from '@/components/tasks-page-ico
 import { useRouter } from 'next/navigation';
 import { NewTaskModal } from '@/components/task-page/new-task';
 import _ from 'lodash';
+import { FilterModal } from '@/components/task-page/filter-modal';
+
+const PRIORITY_LEVELS = {
+    'HIGH': 3,
+    'MED': 2,
+    'LOW': 1,
+};
+
+const ALL_PRIORITIES = Object.keys(PRIORITY_LEVELS);
+const ALL_STATUSES = ['To Do', 'In Progress', 'Finished'];
+const DUE_DATE_OPTIONS = [
+    { value: 'all', label: 'All Tasks' },
+    { value: 'today', label: 'Due Today' },
+    { value: 'week', label: 'Due This Week' },
+    { value: 'past', label: 'Past Due' },
+];
+
 
 function TaskCardSkeleton() {
     return (
@@ -27,8 +44,79 @@ export default function TasksPage() {
     const [isRegistered, setIsRegistered] = useState(false);
     const [isNewTaskModalOpen, setIsNewTaskModalOpen] = useState(false);
     const [isEditTaskModalOpen, setIsEditTaskModalOpen] = useState(false);
+    const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [currentTask, setCurrentTask] = useState(null);
     const router = useRouter();
+
+    const initialFilters = {
+        sortByPriority: 'none',
+        priorityFilter: ALL_PRIORITIES,
+        statusFilter: ALL_STATUSES,
+        dueDateRange: 'all',
+    };
+    const [filters, setFilters] = useState(initialFilters);
+
+    const handleApplyFilters = useCallback((newFilters) => {
+        setFilters(newFilters);
+    }, []);
+
+    const handleClearFilters = useCallback(() => {
+        setFilters(initialFilters);
+    }, []);
+
+    // Memoized filtered and sorted tasks logic
+    const filteredAndSortedTasks = useMemo(() => {
+        const today = new Date().toISOString().slice(0, 10);
+        const now = Date.now();
+        const oneWeek = 7 * 24 * 60 * 60 * 1000;
+
+        let filteredTasks = tasks.filter(task => {
+            // 1. Filter by Priority
+            if (!filters.priorityFilter.includes(task.priority)) {
+                return false;
+            }
+            // 2. Filter by Status
+            if (!filters.statusFilter.includes(task.status)) {
+                return false;
+            }
+            // 3. Filter by Due Date Range
+            if (filters.dueDateRange === 'today' && task.dueDate !== today) {
+                return false;
+            }
+            if (filters.dueDateRange === 'week') {
+                const dueTime = new Date(task.dueDate).getTime();
+                // Check if due date is within the next 7 days (including today)
+                if (dueTime < now || dueTime > now + oneWeek) {
+                    return false;
+                }
+            }
+            if (filters.dueDateRange === 'past') {
+                if (task.dueDate >= today) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+        // 4. Sort by Priority
+        if (filters.sortByPriority !== 'none') {
+            filteredTasks.sort((a, b) => {
+                const levelA = PRIORITY_LEVELS[a.priority] || 0;
+                const levelB = PRIORITY_LEVELS[b.priority] || 0;
+
+                if (filters.sortByPriority === 'asc') {
+                    // Ascending: Low (1) to High (3)
+                    return levelA - levelB;
+                } else {
+                    // Descending: High (3) to Low (1)
+                    return levelB - levelA;
+                }
+            });
+        }
+
+        return filteredTasks;
+    }, [tasks, filters]);
 
     useEffect(() => {
         async function fetchTasks() {
@@ -128,14 +216,14 @@ export default function TasksPage() {
     })
 
     return (
-        <>
+        <div className='no-background-page'>
             <nav className={classes.navbar}>
                 <div>
                     <h3 className={classes.heading}>Tasks Dashboard</h3>
                     <p className={classes.description}>Manage your cosmic tasks with precision</p>
                 </div>
                 <div>
-                    <button className={classes['navbar-btn']} disabled={!isRegistered}>
+                    <button className={classes['navbar-btn']} onClick={() => setIsFilterModalOpen(true)} disabled={!isRegistered}>
                         <FilterIcon />
                         Filter
                     </button>
@@ -175,11 +263,11 @@ export default function TasksPage() {
                             <TaskCardSkeleton />
                         </>
                     ) : tasks.length === 0 ? (
-                        <div className={classes.empty}>
+                        <div className={classes["no-tasks"]}>
                             <p>No tasks yet. Create your first cosmic task!</p>
                         </div>
                     ) : (
-                        tasks.map(task => (
+                        filteredAndSortedTasks.map(task => (
                             <TaskCard
                                 key={task._id}
                                 task={task}
@@ -207,6 +295,14 @@ export default function TasksPage() {
                 onEditTask={handleTaskEdit}
                 task={currentTask}
             />
-        </>
+
+            <FilterModal
+                isOpen={isFilterModalOpen}
+                onClose={() => setIsFilterModalOpen(false)}
+                currentFilters={filters}
+                onApplyFilters={handleApplyFilters}
+                onClearFilters={handleClearFilters}
+            />
+        </div>
     )
 }
